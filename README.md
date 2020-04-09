@@ -95,6 +95,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 ### Built With
 
 * [cobra](https://github.com/spf13/cobra)
+* [go-jira](github.com/andygrunwald/go-jira)
 
 
 
