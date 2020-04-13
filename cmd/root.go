@@ -24,7 +24,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var (
+	cfgFile string
+	debug   bool
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -53,15 +56,17 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.jira-client.yaml)")
+	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Print debug information")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// Connection Details
+	rootCmd.PersistentFlags().StringP("username", "", "", "Jira username")
+	rootCmd.PersistentFlags().StringP("token", "", "", "Jira API token")
+	rootCmd.PersistentFlags().StringP("url", "", "", "Jira Base URL")
+
+	viper.BindPFlag("token", rootCmd.PersistentFlags().Lookup("token"))
+	viper.BindPFlag("username", rootCmd.PersistentFlags().Lookup("username"))
+	viper.BindPFlag("url", rootCmd.PersistentFlags().Lookup("url"))
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -86,6 +91,6 @@ func initConfig() {
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+		//	fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }

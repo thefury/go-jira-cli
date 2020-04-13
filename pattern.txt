@@ -1,0 +1,15 @@
+
+# simple commands that will help me now
+
+project
+  list # shows all projects and names
+
+issue 
+ create --project=DI this is the subject #creates an issue and returns number
+ show --issue=DI-1234  # shows one
+ list # shows all, perhaps filtered
+ 
+comment
+  create --issue=DI-1234 this is my comment
+  
+login?
